@@ -1,5 +1,7 @@
 package netUtil;
 
+import handle.CSHandle;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -8,6 +10,7 @@ import java.net.Socket;
 public class HandleResponseToClient extends Thread {
 	private Socket connectToClient;
 	private Socket target;
+	private CSHandle csHandle;
 	private int isRun = 1;
 
 	public HandleResponseToClient(Socket connectToClient, Socket target) {
@@ -20,16 +23,16 @@ public class HandleResponseToClient extends Thread {
 		try {
 			InputStream isFromTarget = target.getInputStream();
 			OutputStream osToClient = connectToClient.getOutputStream();
-			// System.out.println("发生了什么");
 			byte [] b=new byte[1024];
 			int c=0;
 			while (1 == isRun) {
 				c = isFromTarget.read(b);
-				System.out.println("收到响应了，正在转发:" + b);
+				System.out.println("收到响应了，正在转发:" + b.toString());
 				osToClient.write(b, 0, c);
-//				osToClient.flush();
+				isRun=csHandle.getIsRun();
 			}
-
+			isFromTarget.close();
+			osToClient.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -39,5 +42,9 @@ public class HandleResponseToClient extends Thread {
 
 	public void setIsRun(int isRun) {
 		this.isRun = isRun;
+	}
+	
+	public void setCsHandle(CSHandle csHandle) {
+		this.csHandle = csHandle;
 	}
 }

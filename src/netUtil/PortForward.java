@@ -1,5 +1,7 @@
 package netUtil;
 
+import handle.CSHandle;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -11,10 +13,12 @@ public class PortForward implements Runnable {
 
 	private PortMapItem portMapItem;
 	private ServerSocket srcSocket;
-	static int isRun = 1;
-
+	private int isRun = 1;
+	private CSHandle csHandle;
+	
 	public PortForward(PortMapItem portMapItem) {
 		this.portMapItem = portMapItem;
+		csHandle=new CSHandle();
 		initServerSocket();
 	}
 
@@ -30,8 +34,10 @@ public class PortForward implements Runnable {
 				
 				HandleClientRequest handleClientRequest = new HandleClientRequest(
 						socket, target);
+				handleClientRequest.setCsHandle(csHandle);
 				HandleResponseToClient handleResponseToClient = new HandleResponseToClient(
 						socket, target);
+				handleResponseToClient.setCsHandle(csHandle);
 				handleClientRequest.start();
 				handleResponseToClient.start();
 				countClient++;
@@ -40,8 +46,9 @@ public class PortForward implements Runnable {
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			System.out.println("映射已被关闭");
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			//System.out.println("映射已被关闭");
 		}
 	}
 
@@ -58,6 +65,7 @@ public class PortForward implements Runnable {
 	public void stopMap() {
 		try {
 			isRun = 0;
+			csHandle.setIsRun(isRun);
 			if (!srcSocket.isClosed()) {
 				System.out.println(srcSocket.isClosed());
 				srcSocket.close();
@@ -66,7 +74,6 @@ public class PortForward implements Runnable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			//System.out.println("异常是这里打印的");
 		}
 
 	}

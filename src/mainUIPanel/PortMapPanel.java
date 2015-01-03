@@ -71,7 +71,6 @@ public class PortMapPanel extends JPanel {
 			portMapItem.setSrcPort(srcPort.getText());
 			portMapItem.setDesIP(desIP.getText());
 			portMapItem.setDesPort(desPort.getText());
-			System.out.println(itemHandle);
 			itemHandle.addNewItem(portMapItem);
 		}
 	}
@@ -89,7 +88,6 @@ public class PortMapPanel extends JPanel {
 
 	private boolean isIPValid(String IP) {
 		String ip[] = IP.split("\\.");
-		System.out.println(ip[0]);
 		if (4 != ip.length) {
 			return false;
 		}

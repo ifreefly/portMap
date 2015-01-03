@@ -26,22 +26,26 @@ public class ItemHandle {
 	}
 
 	public void removeItem(int index) {
+		stopMap(index);
 		portItemTableModel.removePortMap(index);
 	}
 
 	public void startMap(int index) {
 		PortMapItem portMapItem = portItemTableModel.getPortMapItem(index);
-		PortForward portForward = new PortForward(portMapItem);
-		portMap.put(caculateHash(portMapItem), portForward);
-		Thread t = new Thread(portForward);
-		t.start();
+		PortForward portForward = portMap.get(caculateHash(portMapItem));
+		if (null == portForward) {
+			portForward = new PortForward(portMapItem);
+			portMap.put(caculateHash(portMapItem), portForward);
+			Thread t = new Thread(portForward);
+			t.start();
+		}
 	}
 
 	public void stopMap(int index) {
 		PortMapItem portMapItem = portItemTableModel.getPortMapItem(index);
 		PortForward portForward = portMap.get(caculateHash(portMapItem));
 		if (null != portForward) {
-			//防止映射重复释放
+			// 确保该映射存在
 			portForward.stopMap();
 			portMap.remove(caculateHash(portMapItem));
 		}
