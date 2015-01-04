@@ -46,7 +46,7 @@ public class PortForward implements Runnable {
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 			System.out.println(e.getMessage());
 			//System.out.println("”≥…‰“—±ªπÿ±’");
 		}
