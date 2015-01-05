@@ -29,21 +29,28 @@ public class HandleClientRequest extends Thread {
 				System.out.println(osToTarget);
 				osToTarget.write(b, 0, c);
 				System.out.println("收到请求正在转发,内容是：" + b.toString());
-				isRun=csHandle.getIsRun();
+				isRun = csHandle.getIsRun();
 			}
 			isFromClient.close();
 			osToTarget.close();
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		try {
+			System.out.println("wtf");
+			target.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void setIsRun(int isRun) {
 		this.isRun = isRun;
 	}
-	
+
 	public void setCsHandle(CSHandle csHandle) {
 		this.csHandle = csHandle;
 	}

@@ -23,13 +23,13 @@ public class HandleResponseToClient extends Thread {
 		try {
 			InputStream isFromTarget = target.getInputStream();
 			OutputStream osToClient = connectToClient.getOutputStream();
-			byte [] b=new byte[1024];
-			int c=0;
+			byte[] b = new byte[1024];
+			int c = 0;
 			while (1 == isRun) {
 				c = isFromTarget.read(b);
 				System.out.println("收到响应了，正在转发:" + b.toString());
 				osToClient.write(b, 0, c);
-				isRun=csHandle.getIsRun();
+				isRun = csHandle.getIsRun();
 			}
 			isFromTarget.close();
 			osToClient.close();
@@ -43,7 +43,7 @@ public class HandleResponseToClient extends Thread {
 	public void setIsRun(int isRun) {
 		this.isRun = isRun;
 	}
-	
+
 	public void setCsHandle(CSHandle csHandle) {
 		this.csHandle = csHandle;
 	}

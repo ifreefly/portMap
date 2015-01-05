@@ -44,6 +44,8 @@ public class PortForward implements Runnable {
 				System.out.println("当前连接的客户端有" + countClient + "个");
 
 			}
+			
+			srcSocket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
