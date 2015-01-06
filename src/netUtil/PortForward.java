@@ -45,11 +45,11 @@ public class PortForward implements Runnable {
 
 			}
 			
-			srcSocket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println(e.getMessage());
+			System.out.println("Map has been stoped");
 			//System.out.println("”≥…‰“—±ªπÿ±’");
 		}
 	}
@@ -72,7 +72,7 @@ public class PortForward implements Runnable {
 				System.out.println(srcSocket.isClosed());
 				srcSocket.close();
 			}
-			System.out.println("Map has been stoped");
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

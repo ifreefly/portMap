@@ -11,6 +11,8 @@ public class HandleResponseToClient extends Thread {
 	private Socket connectToClient;
 	private Socket target;
 	private CSHandle csHandle;
+	private InputStream isFromTarget;
+	private OutputStream osToClient;
 	private int isRun = 1;
 
 	public HandleResponseToClient(Socket connectToClient, Socket target) {
@@ -21,8 +23,8 @@ public class HandleResponseToClient extends Thread {
 	@Override
 	public void run() {
 		try {
-			InputStream isFromTarget = target.getInputStream();
-			OutputStream osToClient = connectToClient.getOutputStream();
+			isFromTarget = target.getInputStream();
+			osToClient = connectToClient.getOutputStream();
 			byte[] b = new byte[1024];
 			int c = 0;
 			while (1 == isRun) {
@@ -31,13 +33,13 @@ public class HandleResponseToClient extends Thread {
 				osToClient.write(b, 0, c);
 				isRun = csHandle.getIsRun();
 			}
-			isFromTarget.close();
-			osToClient.close();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		closeSocketAndIO();
 	}
 
 	public void setIsRun(int isRun) {
@@ -46,5 +48,22 @@ public class HandleResponseToClient extends Thread {
 
 	public void setCsHandle(CSHandle csHandle) {
 		this.csHandle = csHandle;
+	}
+	
+	private void closeSocketAndIO() {
+		try {
+			isFromTarget.close();
+			osToClient.close();
+			if (!connectToClient.isClosed()) {
+				connectToClient.close();
+			}
+			if (!target.isClosed()) {
+				target.close();
+			}
+			System.out.println("服务停止，不再接受响应");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
