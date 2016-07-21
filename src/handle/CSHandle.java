@@ -1,19 +1,17 @@
-/*Description:
- * 处理Socket server与Client的通信事务，设置Socket运行状态等
- * */
-
-
 package handle;
 
-public class CSHandle {
-	private int isRun=1;
+public class CSHandle
+{
+    private boolean isRun = true;
 
-	public int getIsRun() {
-		return isRun;
-	}
+    public boolean isRun()
+    {
+        return isRun;
+    }
 
-	public void setIsRun(int isRun) {
-		this.isRun = isRun;
-	}
-	
+    public void setRun(boolean isRun)
+    {
+        this.isRun = isRun;
+    }
+
 }

@@ -1,6 +1,6 @@
 package mainUIPanel;
 
-import handle.ItemHandle;
+import handle.ItemHandler;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,90 +10,103 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import taskModel.PortTable;
 
-public class FunctionButtonPanel extends JPanel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class FunctionButtonPanel extends JPanel
+{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	public JButton startMap;
-	public JButton stopMap;
-	public JButton removeMap;
-	public ItemHandle itemHandle;
-	public PortTable portTable;
-	public MapAction mapAction;
+    public JButton startMapBtn;
+    public JButton stopMapBtn;
+    public JButton removeMapBtn;
+    public ItemHandler itemHandler;
+    public PortTable portTable;
+    public MapAction mapAction;
 
-	public void setjTable(PortTable portTable) {
-		this.portTable = portTable;
-	}
+    public void setjTable(PortTable portTable)
+    {
+        this.portTable = portTable;
+    }
 
-	public FunctionButtonPanel() {
-		super();
-		initial();
-		placeFunctionButtonPanel();
-		// TODO Auto-generated constructor stub
-	}
+    public FunctionButtonPanel()
+    {
+        super();
+        initial();
+        placeFunctionButtonPanel();
+    }
 
-	private void initial() {
-		startMap = new JButton("¿ªÊ¼Ó³Éä");
-		stopMap = new JButton("Í£Ö¹Ó³Éä");
-		removeMap = new JButton("É¾³ýÓ³Éä");
-		mapAction = new MapAction();
-		startMap.addActionListener(mapAction);
-		stopMap.addActionListener(mapAction);
-		removeMap.addActionListener(mapAction);
-	}
+    private void initial()
+    {
+        startMapBtn = new JButton("start");
+        stopMapBtn = new JButton("Í£Ö¹stop");
+        removeMapBtn = new JButton("remove");
+        mapAction = new MapAction();
+        startMapBtn.addActionListener(mapAction);
+        stopMapBtn.addActionListener(mapAction);
+        removeMapBtn.addActionListener(mapAction);
+    }
 
-	private void placeFunctionButtonPanel() {
-		this.setLayout(new GridLayout(3, 1));
-		this.add(startMap);
-		this.add(stopMap);
-		this.add(removeMap);
-	}
+    private void placeFunctionButtonPanel()
+    {
+        this.setLayout(new GridLayout(3, 1));
+        this.add(startMapBtn);
+        this.add(stopMapBtn);
+        this.add(removeMapBtn);
+    }
 
-	class MapAction implements ActionListener {
+    class MapAction implements ActionListener
+    {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			if (e.getSource() == startMap) {
-				starPortMap();
-			} else if (e.getSource() == stopMap) {
-				stopMap();
-			} else if (e.getSource() == removeMap) {
-				removeMap();
-			}
-		}
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            if (e.getSource() == startMapBtn)
+            {
+                starPortMap();
+            } else if (e.getSource() == stopMapBtn)
+            {
+                stopMap();
+            } else if (e.getSource() == removeMapBtn)
+            {
+                removeMap();
+            }
+        }
 
-	}
+    }
 
-	public void starPortMap() {
-		// TODO
-		if (-1 != portTable.getSelectedRow()) {
-			itemHandle.startMap(portTable.getSelectedRow());
-		}
-	}
+    public void starPortMap()
+    {
+        if (-1 != portTable.getSelectedRow())
+        {
+            itemHandler.startMap(portTable.getSelectedRow());
+        }
+    }
 
-	public void stopMap() {
-		// TODO
-		if (-1 != portTable.getSelectedRow()) {
-			itemHandle.stopMap(portTable.getSelectedRow());
-		}
-	}
+    public void stopMap()
+    {
+        if (-1 != portTable.getSelectedRow())
+        {
+            itemHandler.stopMap(portTable.getSelectedRow());
+        }
+    }
 
-	public void removeMap() {
-		// TODO
-		if (-1 != portTable.getSelectedRow()) {
-			itemHandle.removeItem(portTable.getSelectedRow());
-		}
-	}
+    public void removeMap()
+    {
+        if (-1 != portTable.getSelectedRow())
+        {
+            itemHandler.removeItem(portTable.getSelectedRow());
+        }
+    }
 
-	public void setItemHandel(ItemHandle itemHandle) {
-		this.itemHandle = itemHandle;
-	}
+    public void setItemHandel(ItemHandler itemHandle)
+    {
+        this.itemHandler = itemHandle;
+    }
 
-	public void setPortTable(PortTable portTable) {
-		this.portTable = portTable;
-	}
+    public void setPortTable(PortTable portTable)
+    {
+        this.portTable = portTable;
+    }
 
 }

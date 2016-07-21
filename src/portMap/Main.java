@@ -1,7 +1,10 @@
 package portMap;
 
-public class Main {
-	public static void main(String args[]){
-		new UI();
-	}
+public class Main
+{
+    @SuppressWarnings("unused")
+    public static void main(String args[])
+    {
+        new UI();
+    }
 }
